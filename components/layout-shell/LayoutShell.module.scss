@@ -1,0 +1,72 @@
+@use '../../styles/tokens' as *;
+
+.page {
+  min-height: 100svh;
+  padding: 1rem;
+}
+
+.shell {
+  @include panel;
+  max-width: $layout-max-width;
+  margin: 0 auto;
+  overflow: hidden;
+  box-shadow: none;
+}
+
+.header {
+  display: block;
+  padding: clamp(1.25rem, 2vw, 1.75rem);
+  border-bottom: 1px solid $border;
+}
+
+.headerCopy {
+  min-width: 0;
+}
+
+.kicker {
+  @include section-label;
+  margin: 0 0 $space-3;
+}
+
+.title {
+  max-width: 34rem;
+  margin: 0 0 $space-2;
+  font-family: $font-display;
+  font-size: clamp(2rem, 3.4vw, 2.6rem);
+  font-weight: 700;
+  line-height: 1.04;
+  letter-spacing: -0.04em;
+}
+
+.description {
+  max-width: 28rem;
+  margin: 0;
+  color: $text-secondary;
+  font-size: 0.94rem;
+}
+
+.body {
+  display: grid;
+  grid-template-columns: minmax(300px, 348px) minmax(0, 1fr);
+  min-height: 44rem;
+}
+
+.sidebar {
+  background: $surface;
+  border-right: 1px solid $border;
+}
+
+.content {
+  background: $surface;
+}
+
+@media (max-width: 920px) {
+  .body {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    border-right: 0;
+    border-bottom: 1px solid $border;
+  }
+}

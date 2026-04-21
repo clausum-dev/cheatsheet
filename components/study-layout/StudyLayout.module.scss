@@ -1,0 +1,63 @@
+@use '../../styles/tokens' as *;
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: $space-3;
+  height: 100%;
+  padding: $space-4;
+}
+
+.section {
+  @include subtle-panel;
+  padding: $space-4;
+  background: $surface;
+}
+
+.sectionHeader {
+  display: grid;
+  gap: $space-2;
+  margin-bottom: $space-4;
+}
+
+.sectionLabel {
+  @include section-label;
+  margin: 0;
+}
+
+.sectionHint {
+  margin: 0;
+  color: $text-secondary;
+  font-size: 0.92rem;
+}
+
+.patternSection {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.patternHint {
+  margin: 0 0 $space-4;
+  color: $text-secondary;
+  font-size: 0.92rem;
+}
+
+.content {
+  padding: clamp(1rem, 2.4vw, 1.75rem);
+}
+
+@media (max-width: 920px) {
+  .section {
+    padding: $space-5;
+  }
+
+  .sidebar {
+    padding: $space-4;
+  }
+
+  .content {
+    padding: $space-5;
+  }
+}

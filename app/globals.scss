@@ -1,0 +1,40 @@
+@use '../styles/tokens' as *;
+
+:root {
+  color-scheme: light;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: $background;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: $background;
+  color: $text-primary;
+  font-family: $font-body;
+  line-height: 1.5;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+::selection {
+  background: rgba($accent, 0.16);
+}

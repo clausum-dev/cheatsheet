@@ -1,0 +1,25 @@
+@use '../../styles/tokens' as *;
+
+.root {
+  display: grid;
+  gap: $space-4;
+}
+
+.header {
+  display: block;
+}
+
+.title {
+  margin: 0;
+  color: $text-primary;
+  font-size: 1rem;
+}
+
+.list {
+  display: grid;
+  gap: $space-3;
+  max-height: min(45vh, 31rem);
+  overflow-y: auto;
+  padding-right: 0.2rem;
+  scrollbar-width: thin;
+}

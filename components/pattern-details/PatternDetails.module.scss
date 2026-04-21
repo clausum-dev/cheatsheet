@@ -1,0 +1,60 @@
+@use '../../styles/tokens' as *;
+
+.panel {
+  display: grid;
+  gap: $space-5;
+  animation: detail-in 220ms ease;
+}
+
+.overview {
+  display: grid;
+  gap: $space-3;
+  padding-bottom: $space-4;
+  border-bottom: 1px solid $border;
+}
+
+.title {
+  margin: 0 0 $space-2;
+  color: $text-primary;
+  font-family: $font-display;
+  font-size: clamp(1.9rem, 3.2vw, 2.4rem);
+  font-weight: 700;
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+}
+
+.explanation {
+  max-width: 34rem;
+  margin: 0;
+  color: $text-secondary;
+  font-size: 0.94rem;
+}
+
+.tableBlock {
+  display: grid;
+  gap: $space-3;
+}
+
+.tableHeader {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.tableTitle {
+  margin: 0;
+  color: $text-primary;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+@keyframes detail-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
