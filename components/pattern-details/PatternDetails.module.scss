@@ -23,6 +23,18 @@
   letter-spacing: -0.03em;
 }
 
+.titleRow {
+  display: flex;
+  align-items: center;
+  gap: $space-3;
+  flex-wrap: wrap;
+  margin-bottom: $space-2;
+}
+
+.inlineTitle {
+  margin-bottom: 0;
+}
+
 .explanation {
   max-width: 34rem;
   margin: 0;

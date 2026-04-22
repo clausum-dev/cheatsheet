@@ -21,21 +21,57 @@
 
 .headerCopy {
   min-width: 0;
+  display: grid;
+  gap: $space-3;
+}
+
+.heading {
+  display: grid;
+  gap: $space-3;
 }
 
 .kicker {
   @include section-label;
-  margin: 0 0 $space-3;
+  margin: 0;
 }
 
 .title {
+  display: inline-flex;
+  align-items: center;
+  gap: $space-3;
   max-width: 34rem;
-  margin: 0 0 $space-2;
+  margin: 0;
   font-family: $font-display;
   font-size: clamp(2rem, 3.4vw, 2.6rem);
   font-weight: 700;
   line-height: 1.04;
   letter-spacing: -0.04em;
+}
+
+.flag {
+  position: relative;
+  width: 1.3rem;
+  height: 0.9rem;
+  flex-shrink: 0;
+  border: 1px solid #111111;
+  border-radius: 0.18rem;
+  background:
+    linear-gradient(to bottom, #ffffff 0 50%, #d7141a 50% 100%);
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 58%;
+    background: #11457e;
+    clip-path: polygon(0 0, 100% 50%, 0 100%);
+  }
+}
+
+.modeTabs {
+  display: flex;
+  align-items: flex-start;
 }
 
 .description {

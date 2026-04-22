@@ -2,7 +2,7 @@
 
 .root {
   display: grid;
-  gap: $space-4;
+  gap: $space-3;
 }
 
 .header {
@@ -20,6 +20,6 @@
   gap: $space-3;
   max-height: min(45vh, 31rem);
   overflow-y: auto;
-  padding-right: 0.2rem;
+  padding: 0.4rem 0.2rem;
   scrollbar-width: thin;
 }

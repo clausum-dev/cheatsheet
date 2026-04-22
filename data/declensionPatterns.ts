@@ -333,3 +333,5 @@ export const declensionPatterns: DeclensionPattern[] = [
     ],
   },
 ];
+
+export const nounPatterns = declensionPatterns;

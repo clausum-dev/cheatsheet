@@ -1,48 +1,58 @@
 'use client';
 
 import { useState } from 'react';
-import {
-  MAIN_CATEGORY_OPTIONS,
-  MASCULINE_SUBTYPE_OPTIONS,
-  declensionPatterns,
-} from '@/data/declensionPatterns';
-import {
-  getDefaultPatternId,
-  getPatternsBySelection,
-  getSelectionLabel,
-} from '@/lib/declension';
+import { alphabetData } from '@/data/alphabet';
+import { nounPatterns } from '@/data/declensionPatterns';
+import { verbs } from '@/data/verbs';
+import { getDefaultPatternId, getPatternsBySelection } from '@/lib/declension';
 import { MainCategory, MasculineSubtype } from '@/types/declension';
+import { CheatsheetMode } from '@/types/cheatsheet';
 import { LayoutShell } from '@/components/layout-shell/LayoutShell';
-import { MainCategoryNav } from '@/components/main-category-nav/MainCategoryNav';
-import { MasculineSubtypeNav } from '@/components/masculine-subtype-nav/MasculineSubtypeNav';
-import { PatternList } from '@/components/pattern-list/PatternList';
-import { PatternDetails } from '@/components/pattern-details/PatternDetails';
+import { CheatsheetModeTabs } from '@/components/cheatsheet-mode-tabs/CheatsheetModeTabs';
+import { AlphabetSidebar } from '@/components/alphabet-sidebar/AlphabetSidebar';
+import { NounSidebar } from '@/components/noun-sidebar/NounSidebar';
+import { VerbSidebar } from '@/components/verb-sidebar/VerbSidebar';
+import { AlphabetDetail } from '@/components/alphabet-detail/AlphabetDetail';
+import { NounDetail } from '@/components/noun-detail/NounDetail';
+import { VerbDetail } from '@/components/verb-detail/VerbDetail';
 import styles from './StudyLayout.module.scss';
 
 const defaultCategory: MainCategory = 'masculine';
 const defaultSubtype: MasculineSubtype = 'animate';
 const defaultPatternId =
-  getDefaultPatternId(declensionPatterns, defaultCategory, defaultSubtype) ??
-  declensionPatterns[0].id;
+  getDefaultPatternId(nounPatterns, defaultCategory, defaultSubtype) ?? nounPatterns[0].id;
+const defaultMode: CheatsheetMode = 'nouns';
+const defaultVerbId = verbs[0]?.id ?? '';
+const defaultLetter = alphabetData[0]?.letter ?? '';
 
 export function StudyLayout() {
+  const [mode, setMode] = useState<CheatsheetMode>(defaultMode);
   const [category, setCategory] = useState<MainCategory>(defaultCategory);
   const [masculineSubtype, setMasculineSubtype] =
     useState<MasculineSubtype>(defaultSubtype);
   const [selectedPatternId, setSelectedPatternId] =
     useState<string>(defaultPatternId);
+  const [selectedVerbId, setSelectedVerbId] = useState<string>(defaultVerbId);
+  const [selectedLetter, setSelectedLetter] = useState<string>(defaultLetter);
 
   const activeSubtype = category === 'masculine' ? masculineSubtype : undefined;
   const visiblePatterns = getPatternsBySelection(
-    declensionPatterns,
+    nounPatterns,
     category,
     activeSubtype,
   );
   const selectedPattern =
     visiblePatterns.find((pattern) => pattern.id === selectedPatternId) ??
     visiblePatterns[0];
-  const groupLabel = getSelectionLabel(category, activeSubtype);
-  const patternStepLabel = category === 'masculine' ? '3. Patroon' : '2. Patroon';
+  const selectedVerb = verbs.find((verb) => verb.id === selectedVerbId) ?? verbs[0];
+  const selectedAlphabetEntry =
+    alphabetData.find((entry) => entry.letter === selectedLetter) ?? alphabetData[0];
+  const modeDescription =
+    mode === 'nouns'
+      ? 'Kies een patroon en bekijk direct alle vormen in enkelvoud en meervoud.'
+      : mode === 'verbs'
+        ? 'Kies een werkwoord en bekijk direct de vormen in de tegenwoordige tijd.'
+        : 'Kies een letter en luister direct naar voorbeeldwoorden met browseruitspraak.';
 
   const handleCategoryChange = (nextCategory: MainCategory) => {
     if (nextCategory === category) {
@@ -50,7 +60,7 @@ export function StudyLayout() {
     }
 
     const nextPatternId = getDefaultPatternId(
-      declensionPatterns,
+      nounPatterns,
       nextCategory,
       nextCategory === 'masculine' ? masculineSubtype : undefined,
     );
@@ -67,11 +77,7 @@ export function StudyLayout() {
       return;
     }
 
-    const nextPatternId = getDefaultPatternId(
-      declensionPatterns,
-      'masculine',
-      nextSubtype,
-    );
+    const nextPatternId = getDefaultPatternId(nounPatterns, 'masculine', nextSubtype);
 
     setMasculineSubtype(nextSubtype);
 
@@ -80,62 +86,54 @@ export function StudyLayout() {
     }
   };
 
-  if (!selectedPattern) {
+  if (!selectedPattern || !selectedVerb || !selectedAlphabetEntry) {
     return null;
   }
 
+  const sidebarContent =
+    mode === 'nouns' ? (
+      <NounSidebar
+        category={category}
+        masculineSubtype={masculineSubtype}
+        visiblePatterns={visiblePatterns}
+        selectedPatternId={selectedPattern.id}
+        onCategoryChange={handleCategoryChange}
+        onSubtypeChange={handleSubtypeChange}
+        onPatternSelect={setSelectedPatternId}
+      />
+    ) : mode === 'verbs' ? (
+      <VerbSidebar
+        verbs={verbs}
+        selectedVerbId={selectedVerb.id}
+        onSelect={setSelectedVerbId}
+      />
+    ) : (
+      <AlphabetSidebar
+        letters={alphabetData}
+        selectedLetter={selectedAlphabetEntry.letter}
+        onSelect={setSelectedLetter}
+      />
+    );
+  const detailContent =
+    mode === 'nouns' ? (
+      <NounDetail key={selectedPattern.id} pattern={selectedPattern} />
+    ) : mode === 'verbs' ? (
+      <VerbDetail key={selectedVerb.id} verb={selectedVerb} />
+    ) : (
+      <AlphabetDetail
+        key={selectedAlphabetEntry.letter}
+        entry={selectedAlphabetEntry}
+      />
+    );
+
   return (
     <LayoutShell
-      sidebar={
-        <div className={styles.sidebar}>
-          <section className={styles.section}>
-            <div className={styles.sectionHeader}>
-              <p className={styles.sectionLabel}>1. Geslacht</p>
-              <p className={styles.sectionHint}>Kies het geslacht.</p>
-            </div>
-
-            <MainCategoryNav
-              options={MAIN_CATEGORY_OPTIONS}
-              currentCategory={category}
-              onChange={handleCategoryChange}
-            />
-          </section>
-
-          {category === 'masculine' ? (
-            <section className={styles.section}>
-              <div className={styles.sectionHeader}>
-                <p className={styles.sectionLabel}>2. Subgroep</p>
-                <p className={styles.sectionHint}>Alleen voor mannelijke woorden.</p>
-              </div>
-
-              <MasculineSubtypeNav
-                options={MASCULINE_SUBTYPE_OPTIONS}
-                currentSubtype={masculineSubtype}
-                onChange={handleSubtypeChange}
-              />
-            </section>
-          ) : null}
-
-          <section className={`${styles.section} ${styles.patternSection}`}>
-            <div className={styles.sectionHeader}>
-              <p className={styles.sectionLabel}>{patternStepLabel}</p>
-              <p className={styles.sectionHint}>{groupLabel}</p>
-            </div>
-
-            <p className={styles.patternHint}>Kies een patroon.</p>
-
-            <PatternList
-              patterns={visiblePatterns}
-              selectedPatternId={selectedPattern.id}
-              onSelect={setSelectedPatternId}
-            />
-          </section>
-        </div>
-      }
+      kicker="Tsjechische grammatica"
+      description={modeDescription}
+      modeTabs={<CheatsheetModeTabs currentMode={mode} onChange={setMode} />}
+      sidebar={sidebarContent}
     >
-      <div className={styles.content}>
-        <PatternDetails key={selectedPattern.id} pattern={selectedPattern} />
-      </div>
+      <div className={styles.content}>{detailContent}</div>
     </LayoutShell>
   );
 }

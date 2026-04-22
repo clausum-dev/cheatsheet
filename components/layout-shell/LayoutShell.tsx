@@ -4,19 +4,34 @@ import styles from './LayoutShell.module.scss';
 type LayoutShellProps = {
   sidebar: ReactNode;
   children: ReactNode;
+  description: string;
+  kicker?: string;
+  modeTabs?: ReactNode;
 };
 
-export function LayoutShell({ sidebar, children }: LayoutShellProps) {
+export function LayoutShell({
+  sidebar,
+  children,
+  description,
+  kicker = 'Tsjechische grammatica',
+  modeTabs,
+}: LayoutShellProps) {
   return (
     <div className={styles.page}>
       <div className={styles.shell}>
         <header className={styles.header}>
           <div className={styles.headerCopy}>
-            <p className={styles.kicker}>Tsjechische naamvallen</p>
-            <h1 className={styles.title}>Cheatsheet</h1>
-            <p className={styles.description}>
-              Kies een patroon en bekijk direct alle vormen in enkelvoud en meervoud.
-            </p>
+            <p className={styles.kicker}>{kicker}</p>
+
+            <div className={styles.heading}>
+              <h1 className={styles.title}>
+                <span>Learn Czech</span>
+                <span className={styles.flag} aria-hidden="true" />
+              </h1>
+              {modeTabs ? <div className={styles.modeTabs}>{modeTabs}</div> : null}
+            </div>
+
+            <p className={styles.description}>{description}</p>
           </div>
         </header>
 

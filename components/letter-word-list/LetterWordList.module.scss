@@ -1,0 +1,39 @@
+@use '../../styles/tokens' as *;
+
+.wrapper {
+  overflow: hidden;
+  border: 1px solid $border;
+  border-radius: $radius-lg;
+  background: $surface;
+}
+
+.list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $space-4;
+  padding: $space-4 $space-5;
+  border-bottom: 1px solid $border;
+}
+
+.row:last-child {
+  border-bottom: 0;
+}
+
+.word {
+  color: $text-primary;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+@media (max-width: 640px) {
+  .row {
+    padding: $space-3 $space-4;
+  }
+}

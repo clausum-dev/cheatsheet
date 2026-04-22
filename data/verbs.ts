@@ -1,0 +1,131 @@
+import { ConjugationRow, Verb, VerbCategory } from '@/types/verb';
+
+const row = (
+  dutchPronoun: string,
+  czechPronoun: string,
+  form: string,
+): ConjugationRow => ({
+  dutchPronoun,
+  czechPronoun,
+  form,
+});
+
+export const VERB_CATEGORY_LABELS: Record<VerbCategory, string> = {
+  regular: 'Regelmatig',
+  irregular: 'Onregelmatig',
+};
+
+export const verbs: Verb[] = [
+  {
+    id: 'být',
+    infinitive: 'být',
+    translationNl: 'zijn',
+    category: 'irregular',
+    conjugation: [
+      row('ik', 'já', 'jsem'),
+      row('jij', 'ty', 'jsi'),
+      row('hij', 'on', 'je'),
+      row('zij', 'ona', 'je'),
+      row('het', 'ono', 'je'),
+      row('wij', 'my', 'jsme'),
+      row('jullie', 'vy', 'jste'),
+      row('zij', 'oni / ony / ona', 'jsou'),
+    ],
+  },
+  {
+    id: 'mít',
+    infinitive: 'mít',
+    translationNl: 'hebben',
+    category: 'irregular',
+    conjugation: [
+      row('ik', 'já', 'mám'),
+      row('jij', 'ty', 'máš'),
+      row('hij', 'on', 'má'),
+      row('zij', 'ona', 'má'),
+      row('het', 'ono', 'má'),
+      row('wij', 'my', 'máme'),
+      row('jullie', 'vy', 'máte'),
+      row('zij', 'oni / ony / ona', 'mají'),
+    ],
+  },
+  {
+    id: 'dát',
+    infinitive: 'dát',
+    translationNl: 'geven',
+    category: 'irregular',
+    conjugation: [
+      row('ik', 'já', 'dám'),
+      row('jij', 'ty', 'dáš'),
+      row('hij', 'on', 'dá'),
+      row('zij', 'ona', 'dá'),
+      row('het', 'ono', 'dá'),
+      row('wij', 'my', 'dáme'),
+      row('jullie', 'vy', 'dáte'),
+      row('zij', 'oni / ony / ona', 'dají'),
+    ],
+  },
+  {
+    id: 'dělat',
+    infinitive: 'dělat',
+    translationNl: 'doen, maken',
+    category: 'regular',
+    conjugation: [
+      row('ik', 'já', 'dělám'),
+      row('jij', 'ty', 'děláš'),
+      row('hij', 'on', 'dělá'),
+      row('zij', 'ona', 'dělá'),
+      row('het', 'ono', 'dělá'),
+      row('wij', 'my', 'děláme'),
+      row('jullie', 'vy', 'děláte'),
+      row('zij', 'oni / ony / ona', 'dělají'),
+    ],
+  },
+  {
+    id: 'jít',
+    infinitive: 'jít',
+    translationNl: 'gaan',
+    category: 'irregular',
+    conjugation: [
+      row('ik', 'já', 'jdu'),
+      row('jij', 'ty', 'jdeš'),
+      row('hij', 'on', 'jde'),
+      row('zij', 'ona', 'jde'),
+      row('het', 'ono', 'jde'),
+      row('wij', 'my', 'jdeme'),
+      row('jullie', 'vy', 'jdete'),
+      row('zij', 'oni / ony / ona', 'jdou'),
+    ],
+  },
+  {
+    id: 'používat',
+    infinitive: 'používat',
+    translationNl: 'gebruiken',
+    category: 'regular',
+    conjugation: [
+      row('ik', 'já', 'používám'),
+      row('jij', 'ty', 'používáš'),
+      row('hij', 'on', 'používá'),
+      row('zij', 'ona', 'používá'),
+      row('het', 'ono', 'používá'),
+      row('wij', 'my', 'používáme'),
+      row('jullie', 'vy', 'používáte'),
+      row('zij', 'oni / ony / ona', 'používají'),
+    ],
+  },
+  {
+    id: 'vidět',
+    infinitive: 'vidět',
+    translationNl: 'zien',
+    category: 'regular',
+    conjugation: [
+      row('ik', 'já', 'vidím'),
+      row('jij', 'ty', 'vidíš'),
+      row('hij', 'on', 'vidí'),
+      row('zij', 'ona', 'vidí'),
+      row('het', 'ono', 'vidí'),
+      row('wij', 'my', 'vidíme'),
+      row('jullie', 'vy', 'vidíte'),
+      row('zij', 'oni / ony / ona', 'vidí'),
+    ],
+  },
+];

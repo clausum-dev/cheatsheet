@@ -1,0 +1,40 @@
+@use '../../styles/tokens' as *;
+
+.root {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: $space-2;
+}
+
+.button {
+  border: 1px solid $border;
+  border-radius: $radius-md;
+  background: $surface;
+  padding: 0.7rem 1rem;
+  color: $text-secondary;
+  font-size: 0.92rem;
+  font-weight: 600;
+  line-height: 1;
+  transition:
+    border-color $transition-base,
+    background-color $transition-base,
+    color $transition-base;
+  cursor: pointer;
+
+  &:hover {
+    border-color: $border-strong;
+    background: $surface-muted;
+    color: $text-primary;
+  }
+
+  &:focus-visible {
+    @include focus-ring;
+  }
+}
+
+.active {
+  border-color: $accent;
+  background: $surface;
+  color: $text-primary;
+  box-shadow: inset 0 -2px 0 $accent;
+}

@@ -1,17 +1,13 @@
-import { DeclensionPattern } from '@/types/declension';
 import styles from './PatternButton.module.scss';
 
 type PatternButtonProps = {
-  pattern: DeclensionPattern;
+  id: string;
+  label: string;
   selected: boolean;
-  onSelect: (patternId: string) => void;
+  onSelect: (itemId: string) => void;
 };
 
-export function PatternButton({
-  pattern,
-  selected,
-  onSelect,
-}: PatternButtonProps) {
+export function PatternButton({ id, label, selected, onSelect }: PatternButtonProps) {
   const className = [styles.button, selected ? styles.selected : '']
     .filter(Boolean)
     .join(' ');
@@ -21,9 +17,10 @@ export function PatternButton({
       type="button"
       className={className}
       aria-pressed={selected}
-      onClick={() => onSelect(pattern.id)}
+      aria-label={label}
+      onClick={() => onSelect(id)}
     >
-      <span className={styles.name}>{pattern.name}</span>
+      <span className={styles.name}>{label}</span>
     </button>
   );
 }

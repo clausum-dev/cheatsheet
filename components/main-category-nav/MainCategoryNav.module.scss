@@ -2,30 +2,38 @@
 
 .root {
   display: grid;
-  gap: $space-3;
+  gap: $space-2;
 }
 
 .button {
+  display: flex;
+  align-items: center;
+  min-height: 3.15rem;
   border: 1px solid $border;
-  border-radius: $radius-md;
-  background: $surface;
-  padding: 0.95rem 1rem;
+  border-radius: $radius-sm;
+  background: $surface-soft;
+  padding: 0.85rem 1rem;
   text-align: left;
   transition:
     border-color $transition-base,
-    background-color $transition-base;
+    background-color $transition-base,
+    box-shadow $transition-base,
+    transform $transition-base;
   cursor: pointer;
 
   strong {
     display: block;
     color: $text-primary;
-    font-size: 1rem;
+    font-size: 0.97rem;
     font-weight: 600;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
   }
 
   &:hover {
     border-color: $border-strong;
-    background: $surface-muted;
+    background: $surface;
+    transform: translateY(-1px);
   }
 
   &:focus-visible {
@@ -36,7 +44,7 @@
 .active {
   border-color: $accent;
   background: $surface;
-  box-shadow: inset 3px 0 0 $accent;
+  box-shadow: 0 0 0 1px $accent;
 }
 
 @media (max-width: 640px) {
